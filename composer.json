@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Providers\\RouteDocServiceProvider"
+                "DarksLight2\\RouteDoc\\Providers\\RouteDocServiceProvider"
             ]
         }
     }
