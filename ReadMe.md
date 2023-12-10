@@ -21,3 +21,6 @@ class Controller extends Controller
 ```
 ## Страница отображения
 http://example.com/routes/doc
+## Возможность изменения визуальной части
+Для этого необходимо опубликовать шаблоны, после этого их можно кастомизировать как угодно
+- php artisan vendor:publish --provider='DarksLight2\RouteDoc\Providers\RouteDocServiceProvider'
