@@ -1,6 +1,6 @@
 <?php
 
-namespace DarksLight2\ApiDoc\Providers;
+namespace DarksLight2\RouteDoc\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
