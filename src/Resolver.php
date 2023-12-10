@@ -1,6 +1,6 @@
 <?php
 
-namespace DarksLight2\ApiDoc;
+namespace DarksLight2\RouteDoc;
 
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
