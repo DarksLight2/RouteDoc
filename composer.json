@@ -14,13 +14,13 @@
     },
     "autoload": {
         "psr-4": {
-            "DarksLight2\\ApiDoc\\": "src"
+            "DarksLight2\\RouteDoc\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "RouteDocServiceProvider"
+                "DarksLight2\\RouteDoc\\Providers\\RouteDocServiceProvider"
             ]
         }
     }
