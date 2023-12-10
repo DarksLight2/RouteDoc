@@ -4,8 +4,8 @@ namespace DarksLight2\ApiDoc;
 
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
-use DarksLight2\ApiDoc\DTOs\RouteDTO;
-use DarksLight2\ApiDoc\Attributes\RouteDoc;
+use DarksLight2\RouteDoc\DTOs\RouteDTO;
+use DarksLight2\RouteDoc\Attributes\RouteDoc;
 
 readonly class Resolver
 {

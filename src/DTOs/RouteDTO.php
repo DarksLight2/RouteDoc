@@ -1,6 +1,6 @@
 <?php
 
-namespace DarksLight2\ApiDoc\DTOs;
+namespace DarksLight2\RouteDoc\DTOs;
 
 readonly class RouteDTO
 {

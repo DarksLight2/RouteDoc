@@ -1,8 +1,8 @@
 <?php
 
-namespace DarksLight2\ApiDoc\Controllers;
+namespace DarksLight2\RouteDoc\Controllers;
 
-use DarksLight2\ApiDoc\Resolver;
+use DarksLight2\RouteDoc\Resolver;
 use App\Http\Controllers\Controller;
 
 class DocController extends Controller
