@@ -22,10 +22,18 @@ readonly class Resolver
         /**
          * @throws \ReflectionException
          */ $routes, function (Route $route) use ($resolved) {
+            try {
+                $controller = $route->getControllerClass();
+            } catch (\Throwable $e) {
+                \Log::error($e->getMessage(), [
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ]);
+                return;
+            }
+             if(empty($controller)) return;
 
-             if(empty($route->getControllerClass())) return;
-
-            $reflection = new \ReflectionClass($route->getControllerClass());
+            $reflection = new \ReflectionClass($controller);
             $methods = $reflection->getMethods();
             array_walk($methods, function (\ReflectionMethod $method) use ($resolved, $route) {
                 if(!empty($attr = $method->getAttributes(RouteDoc::class))) {
