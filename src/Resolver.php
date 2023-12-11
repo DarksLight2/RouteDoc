@@ -2,9 +2,12 @@
 
 namespace DarksLight2\RouteDoc;
 
+use ReflectionAttribute;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Collection;
 use DarksLight2\RouteDoc\DTOs\RouteDTO;
+use DarksLight2\RouteDoc\DTOs\MethodDTO;
 use DarksLight2\RouteDoc\Attributes\RouteDoc;
 
 readonly class Resolver
@@ -13,37 +16,49 @@ readonly class Resolver
     {
     }
 
-    public function handle()
+    /**
+     * @param ReflectionAttribute[] $attributes
+     * @return array
+     */
+    private function resolveRouteMethods(array $attributes): array
+    {
+        $methods = [];
+        array_walk($attributes, function ($attr) use (&$methods) {
+            $args = $attr->getArguments();
+            $methods[$args[1]] = new MethodDTO(
+                $args[0],
+                $args[3] ?? [],
+                $args[4] ?? [],
+                $args[2] ?? [],
+            );
+        });
+
+        return $methods;
+    }
+
+    public function handle(): Collection
     {
         $resolved = collect();
 
         $routes = $this->router->getRoutes()->getRoutes();
-        array_walk(
-        /**
-         * @throws \ReflectionException
-         */ $routes, function (Route $route) use ($resolved) {
+
+        array_walk($routes, function (Route $route) use (&$resolved) {
             try {
                 $controller = $route->getControllerClass();
-            } catch (\Throwable $e) {
-                \Log::error($e->getMessage(), [
-                    'file' => $e->getFile(),
-                    'line' => $e->getLine(),
-                ]);
+            } catch (\Throwable) {
                 return;
             }
+
              if(empty($controller)) return;
 
             $reflection = new \ReflectionClass($controller);
-            $methods = $reflection->getMethods();
-            array_walk($methods, function (\ReflectionMethod $method) use ($resolved, $route) {
-                if(!empty($attr = $method->getAttributes(RouteDoc::class))) {
-                    $resolved->add(new RouteDTO(
-                        methods: $route->methods,
-                        uri: $route->uri,
-                        description: $attr[0]->getArguments()[0]
-                    ));
-                }
-            });
+
+            if(!empty($attr = $reflection->getAttributes(RouteDoc::class))) {
+                $resolved->add(new RouteDTO(
+                    methods: $this->resolveRouteMethods($attr),
+                    uri: $route->uri,
+                ));
+            }
         });
 
         return $resolved;
