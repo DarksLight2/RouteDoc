@@ -29,17 +29,17 @@
         @foreach($methods as $method_name => $method)
             @if(!empty($method->params))
                 <div class="px-4 py-5" x-show="activeEndpoint && activeMethod === '{{ $method_name }}' && activeTab === 'params'">
-                    <p>@json($method->params)</p>
+                    <pre>{{ json_encode($method->params, JSON_PRETTY_PRINT) }}</pre>
                 </div>
             @endif
             @if(!empty($method->return_success))
                 <div class="px-4 py-5" x-show="activeEndpoint && activeMethod === '{{ $method_name }}' && activeTab === 'success'">
-                    <p>@json($method->return_success)</p>
+                    <pre>{{ json_encode($method->return_success, JSON_PRETTY_PRINT) }}</pre>
                 </div>
             @endif
             @if(!empty($method->return_error))
                 <div class="px-4 py-5" x-show="activeEndpoint && activeMethod === '{{ $method_name }}' && activeTab === 'error'">
-                    <p>@json($method->return_error)</p>
+                    <pre>{{ json_encode($method->return_error, JSON_PRETTY_PRINT) }}</pre>
                 </div>
             @endif
         @endforeach
