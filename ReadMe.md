@@ -4,7 +4,6 @@
 - laravel 9+
 - php 8.2+
 ## Использование
-Перед методом контроллера необходимо установить атрибут `#[RouteDoc("description")]`
 ```php
 <?php
 
@@ -12,7 +11,7 @@ use DarksLight2\RouteDoc\Attributes\RouteDoc;
 
 class Controller extends Controller
 {
-    #[RouteDoc("description")]
+    #[RouteDoc("description", "method", ["except_params" => "rule"], ["success_response_template"], ["error_response_template"])]
     public function some()
     {
         ...
