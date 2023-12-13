@@ -14,6 +14,11 @@ class RouteDocServiceProvider extends ServiceProvider
         Blade::component('route_doc::error-button', 'rd-error-button');
         Blade::component('route_doc::success-button', 'rd-success-button');
         Blade::component('route_doc::item', 'rd-item');
+        Blade::component('route_doc::json-code', 'rd-json-code');
+        Blade::component('route_doc::icon-sun', 'rd-icon-sun');
+        Blade::component('route_doc::icon-moon', 'rd-icon-moon');
+        Blade::component('route_doc::circle-button', 'rd-circle-button');
+        Blade::component('route_doc::theme-switcher', 'rd-theme-switcher');
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/route_doc.php');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'route_doc');

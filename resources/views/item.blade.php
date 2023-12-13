@@ -15,12 +15,12 @@
             {{ $uri }}
         </h3>
         <p x-text="description" id="description" class="mt-2 max-w-xl text-sm text-gray-500" x-show="activeEndpoint"></p>
-        <div class="mt-5 flex gap-2" x-show="activeEndpoint">
+        <div class="mt-5 flex gap-2" x-transition x-show="activeEndpoint">
             @foreach($methods as $method_name => $method)
                 <x-rd-primary-button @click.stop="activeMethod = '{{ $method_name }}'; activeTab = 'description'; description = '{{ $method->description }}'">{{ $method_name }}</x-rd-primary-button>
             @endforeach
         </div>
-        <div class="mt-5 gap-4 flex" x-show="activeEndpoint && activeMethod !== null">
+        <div class="mt-5 gap-4 flex" x-transition x-show="activeEndpoint && activeMethod !== null">
             <x-rd-primary-button @click.stop="activeTab = 'params'">Параметры</x-rd-primary-button>
             <x-rd-success-button @click.stop="activeTab = 'success'">Успешный запрос</x-rd-success-button>
             <x-rd-error-button @click.stop="activeTab = 'error'">Ошибка</x-rd-error-button>
@@ -29,17 +29,17 @@
         @foreach($methods as $method_name => $method)
             @if(!empty($method->params))
                 <div class="px-4 py-5" x-show="activeEndpoint && activeMethod === '{{ $method_name }}' && activeTab === 'params'">
-                    <pre>{{ json_encode($method->params, JSON_PRETTY_PRINT) }}</pre>
+                    <x-rd-json-code>{{ json_encode($method->params, JSON_PRETTY_PRINT) }}</x-rd-json-code>
                 </div>
             @endif
             @if(!empty($method->return_success))
                 <div class="px-4 py-5" x-show="activeEndpoint && activeMethod === '{{ $method_name }}' && activeTab === 'success'">
-                    <pre>{{ json_encode($method->return_success, JSON_PRETTY_PRINT) }}</pre>
+                    <x-rd-json-code>{{ json_encode($method->return_success, JSON_PRETTY_PRINT) }}</x-rd-json-code>
                 </div>
             @endif
             @if(!empty($method->return_error))
                 <div class="px-4 py-5" x-show="activeEndpoint && activeMethod === '{{ $method_name }}' && activeTab === 'error'">
-                    <pre>{{ json_encode($method->return_error, JSON_PRETTY_PRINT) }}</pre>
+                    <x-rd-json-code>{{ json_encode($method->return_error, JSON_PRETTY_PRINT) }}</x-rd-json-code>
                 </div>
             @endif
         @endforeach
